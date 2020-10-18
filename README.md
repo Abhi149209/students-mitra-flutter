@@ -1,6 +1,6 @@
 # students-mitra-flutter project
 
-Contributors:
-**[@pktintali](https://github.com/pktintali)**
-**[@Abhi149209](https://github.com/Abhi149209)**
+Contributors:<br>
+**[@pktintali](https://github.com/pktintali)**<br>
+**[@Abhi149209](https://github.com/Abhi149209)**<br>
 **[@AyushJoker](https://github.com/AyushJoker)**
