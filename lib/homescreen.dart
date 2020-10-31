@@ -1,7 +1,11 @@
+import 'dart:async';
+import 'package:flutter_app_tmdb/quiz_screen.dart';
+
+import 'Album_cell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'reuse.dart';
-
+import 'networking.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -12,21 +16,56 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-
-  String s1="nosel";
-  String s2="nosel";
-  String s3="nosel";
-  String s4="nosel";
-  String s5="nosel";
-  String s6="nosel";
+  StreamController<int> streamController = new StreamController<int>();
 
 
 
+
+
+
+  gridview(AsyncSnapshot<List<Album>> snapshot) {
+    return Padding(
+      padding: EdgeInsets.all(5.0),
+      child: GridView.count(
+        crossAxisCount: 2,
+        childAspectRatio: 1.0,
+        mainAxisSpacing: 4.0,
+        crossAxisSpacing: 4.0,
+        children: snapshot.data.map(
+              (album) {
+
+            return GestureDetector(
+              child: GridTile(
+                child: AlbumCell(album1:album),
+              ),
+              onTap: () {
+                setState(() {
+                  if (album.color==Colors.white){
+                    album.color=Colors.green;
+                  }else if (album.color==Colors.green){
+                    album.color=Colors.white;
+                  }
+                });
+              },
+            );
+          },
+        ).toList(),
+      ),
+    );
+  }
+
+
+
+  circularProgress() {
+    return Center(
+      child: const CircularProgressIndicator(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar:  AppBar(
         backgroundColor: Colors.red,
         title: Center(
           child: Text(
@@ -38,141 +77,52 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-              padding: EdgeInsets.all(10.0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Select Subjects ",
-                        style: TextStyle(fontSize: 35.0, color: Colors.grey))
-                  ])),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RaisedButton(
-                onPressed: () {},
-                color: Colors.red,
-                child: Text("Start"),
-              ),
-            ],
-          ),
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: ReusableCode(
-                  onPress: (){
-                    setState(() {
-                      s1="sel";
-                    });
-                  },
+          Center(child: Text("Select Your Subjects",style: TextStyle(fontSize: 40.0,color: Colors.grey),)),
+          Center(
+            child: RaisedButton(
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Quiz_page()));
+              },
+              color: Colors.red,
 
-
-                      //colour: select==Gender.selected1?Colors.green:Colors.white,
-                      colour: s1=="sel"?Colors.green:Colors.white,
-
-                  cardchild: "DBMS",
-                  cardchild2: "DATABASE MANAGEMENT SYSTEM",
-                )),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Expanded(
-                    child: ReusableCode(
-                      onPress: (){
-                        setState(() {
-
-                          s2="sel";
-                        });
-                      },
-
-                      colour: s2=="sel"?Colors.green:Colors.white,
-                      cardchild: "ML",
-                      cardchild2: "MACHINE LEARNING",
-                )),
-              ],
+              child: Text("Test"),
             ),
           ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: ReusableCode(
-                      onPress: (){
-                        setState(() {
+          Flexible(
+            child: FutureBuilder<List<Album>>(
+              future: Services.getPhotos(),
+              builder: (context, snapshot) {
+                // not setstate here
+                //
+                if (snapshot.hasError) {
+                  return Text('Error ${snapshot.error}');
+                }
+                //
+                if (snapshot.hasData) {
+                  streamController.sink.add(snapshot.data.length);
+                  // gridview
+                  return gridview(snapshot);
+                }
 
-                          s3="sel";
-                        });
-                      },
-
-                      colour: s3=="sel"?Colors.green:Colors.white,
-                      cardchild: "CD",
-                      cardchild2: "COMPILER DESIGN",
-                )),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Expanded(
-                    child: ReusableCode(
-                      onPress: (){
-                        setState(() {
-
-                          s4="sel";
-                        });
-                      },
-
-                      colour: s4=="sel"?Colors.green:Colors.white,
-                      cardchild: "DAA",
-                      cardchild2: "DESIGN AND ANALYSIS OF ALGORITHM",
-                )),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: ReusableCode(
-                      onPress: (){
-                        setState(() {
-
-                          s5="sel";
-                        });
-                      },
-
-                      colour: s5=="sel"?Colors.green:Colors.white,
-                      cardchild: "DA",
-                      cardchild2: "DATA ANALYTICS",
-                )),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Expanded(
-                    child: ReusableCode(
-                      onPress: (){
-                        setState(() {
-
-                          s6="sel";
-                        });
-                      },
-
-                      colour: s6=="sel"?Colors.green:Colors.white,
-                      cardchild: "COI",
-                      cardchild2: "CONSTITUTION OF INDIA",
-                )),
-              ],
+                return circularProgress();
+              },
             ),
           ),
         ],
       ),
     );
   }
+
+  @override
+  void dispose() {
+    streamController.close();
+    super.dispose();
+  }
 }
+

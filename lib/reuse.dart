@@ -1,36 +1,53 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-class ReusableCode extends StatelessWidget {
-  ReusableCode({@required this.colour, this.cardchild,this.onPress,this.cardchild2});
-  final Color colour;
-  final String cardchild;
-  final String cardchild2;
-  final Function onPress;
+import 'Album_cell.dart';
+
+class AlbumCell extends StatelessWidget {
+  const AlbumCell({this.album1});
+  @required
+  final Album album1;
+
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Material(
-        elevation: 8.0,
-        borderRadius: BorderRadius.circular(24.0),
-        color: colour,
-        child: GestureDetector(
-
-
-          onTap:onPress,
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      color: album1.color,
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Container(
+          alignment: Alignment.center,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
-
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-
-              Text(cardchild,style: TextStyle(fontSize: 30.0),),
-              Text(cardchild2,textAlign: TextAlign.center,),
+              Flexible(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Text(
+                    album1.shortname,
+                    style: TextStyle(fontSize: 50.0),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  album1.name,
+                  maxLines: 2,
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                  ),
+                ),
+              ),
             ],
           ),
-          ),
         ),
+      ),
     );
-
   }
 }

@@ -42,7 +42,7 @@ class _HomeScreen1State extends State<HomeScreen1> {
         
                   child: ReusableCode2(
                     onPress: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreenAS()));
+
                     },
                     //colour: select==Gender.selected1?Colors.green:Colors.white,
                     colour: Colors.white,
