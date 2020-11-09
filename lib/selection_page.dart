@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'reuse_sel.dart';
 import 'homescreen.dart';
-import 'homescreen_select_all.dart';
+import 'select_single_sub.dart';
 
 
 
@@ -42,7 +42,7 @@ class _HomeScreen1State extends State<HomeScreen1> {
         
                   child: ReusableCode2(
                     onPress: (){
-
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen_select_1()));
                     },
                     //colour: select==Gender.selected1?Colors.green:Colors.white,
                     colour: Colors.white,

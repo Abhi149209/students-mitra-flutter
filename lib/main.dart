@@ -3,7 +3,7 @@ import 'selection_page.dart';
 import 'package:flutter_app_tmdb/Explore.dart';
 import 'login.dart';
 
-
+import 'register.dart';
 
 
 void main() {
@@ -22,6 +22,7 @@ class _MyAppState extends State<MyApp> {
     Explore(),
     Login(),
     HomeScreen1(),
+    Register(),
   ];
 
   @override

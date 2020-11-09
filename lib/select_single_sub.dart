@@ -11,19 +11,19 @@ import 'json.dart';
 import 'api_subject.dart';
 
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen_select_1 extends StatefulWidget {
 
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeScreen_select_1State createState() => _HomeScreen_select_1State();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-   var url1="https://sheets.googleapis.com/v4/spreadsheets/1sQhy4Ex1XztFzMU3_nvpc-9par8AcIIwsksm9vhlM_E/values/subject?key=AIzaSyBHa8gIZFiDDGmSUKiDPBn6I-aDt6e0IHc";
+class _HomeScreen_select_1State extends State<HomeScreen_select_1> {
+  var url1="https://sheets.googleapis.com/v4/spreadsheets/1sQhy4Ex1XztFzMU3_nvpc-9par8AcIIwsksm9vhlM_E/values/subject?key=AIzaSyBHa8gIZFiDDGmSUKiDPBn6I-aDt6e0IHc";
   StreamController<int> streamController = new StreamController<int>();
   Future<dynamic> album;
-  List<dynamic> arr=[];
-
+  String subject;
+  Color colour=Colors.white;
   List<Widget> myTile =[];
 
   void getTiles(data){
@@ -36,17 +36,13 @@ class _HomeScreenState extends State<HomeScreen> {
         continue;
       }
 
-      myTile.add(GestureDetector(child: GridTile(child: AlbumCell(album1: i)),onTap: ()
-      {
+      myTile.add(GestureDetector(child: GridTile(child: AlbumCell(album1: i,colour: colour,)),onTap: ()
+        {
         setState(() {
-          if (arr.contains(i[2])){
-            arr.remove(i[2]);
-          }else{
-            arr.add(i[2]);
-          }
-          print(arr);
+        subject=i[2];
+        });
 
-      });},));
+        },));
 
     }
   }
@@ -68,8 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
         children:myTile,
 
-        ),
-      );
+      ),
+    );
 
   }
 
@@ -110,13 +106,13 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Center(child: Text("Select Your Subjects",style: TextStyle(fontSize: 40.0,color: Colors.grey),)),
+          Center(child: Text("Select Your Subject",style: TextStyle(fontSize: 40.0,color: Colors.grey),)),
           Center(
             child: RaisedButton(
               onPressed: (){
-                for(var k in arr){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Quiz_page(sub: k)));
-                }
+
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Quiz_page(sub: "https://sheets.googleapis.com/v4/spreadsheets/1nKZxQH1nAVPPhpSLH1tPlYcW31-ZRM9qi7KoGvpLroc/values/${subject}?key=AIzaSyBHa8gIZFiDDGmSUKiDPBn6I-aDt6e0IHc")));
+
 
               },
               color: Colors.red,

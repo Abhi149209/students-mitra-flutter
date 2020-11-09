@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_tmdb/register.dart';
 
-import 'register.dart';
 
-class Login extends StatefulWidget {
+
+class Register extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   @override
   Widget build(BuildContext context) {
@@ -41,6 +40,7 @@ class _LoginState extends State<Login> {
           OutlineInputBorder(borderRadius: BorderRadius.circular(0.0))),
 
     );
+
     final loginButon = Material(
       elevation: 5.0,
 
@@ -55,17 +55,15 @@ class _LoginState extends State<Login> {
                 color: Colors.white, fontWeight: FontWeight.bold)),
       ),
     );
-    final RegisterButon = Material(
+    final AlreadyAcc = Material(
       elevation: 5.0,
 
       color: Colors.redAccent,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()));
-        },
-        child: Text("New User ? SignUp",
+        onPressed: () {},
+        child: Text("Already Account SignIn ",
             textAlign: TextAlign.center,
             style: style.copyWith(
                 color: Colors.white, fontWeight: FontWeight.bold)),
@@ -95,18 +93,18 @@ class _LoginState extends State<Login> {
           SizedBox(
             height: 80,
           ),
-        Container(
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Center(
-                child:Container(
-                  child: Stack(
+          Container(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Center(
+                  child:Container(
+                    child: Stack(
 
-                    children: <Widget>[
+                      children: <Widget>[
 
-                      Card(
+                        Card(
                           elevation: 10.0,
                           child: InkWell(
                             splashColor: Colors.blue.withAlpha(30),
@@ -115,7 +113,7 @@ class _LoginState extends State<Login> {
                             },
                             child: SingleChildScrollView(
                               child: Container(
-                                height: MediaQuery.of(context).size.height * 0.6,
+                                height: MediaQuery.of(context).size.height * 0.74,
                                 width: MediaQuery.of(context).size.width*0.9,
                                 child: Padding(
                                   padding: const EdgeInsets.all(16.0),
@@ -125,53 +123,56 @@ class _LoginState extends State<Login> {
 
 
                                     children: <Widget>[
-                                      SizedBox(height: 30.0),
+                                      SizedBox(height: 35.0),
 
 
-                                    Text("Enter Your Name",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                                    name,
+                                      Text("Enter Your Name",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                                      name,
 
-                                    SizedBox(height: 15.0),
+                                      SizedBox(height: 15.0),
                                       Text("Enter E-Mail ID",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                                    emailField,
-                                    SizedBox(height: 15.0),
+                                      emailField,
+                                      SizedBox(height: 15.0),
                                       Text("Enter Your Password",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-                                    passwordField,
-                                    SizedBox(
-                                      height: 25.0,
-                                    ),
-                                    loginButon,
+                                      passwordField,
+                                      SizedBox(height: 15.0),
+                                      Text("Confirm Your Password",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+                                      passwordField,
                                       SizedBox(
-                                        height: 15.0,
+                                        height: 25.0,
                                       ),
-                                      RegisterButon,
+                                      loginButon,
+                                      SizedBox(height: 15.0),
+                                      AlreadyAcc,
+                                      SizedBox(height: 15.0),
 
-                                  ],
+
+                                    ],
                                   ),
-                                ),
                                 ),
                               ),
                             ),
                           ),
-                      FractionalTranslation(
-                        translation: Offset(1.1, -0.5),
-                        child: Container(
-                          width: 100.0,
-                          height: 100.0,
-                          child: Center(
-                              child:Icon(Icons.group,size: 100.0,color: Colors.redAccent,),
                         ),
-                      ),
-                      )],
+                        FractionalTranslation(
+                          translation: Offset(1.1, -0.5),
+                          child: Container(
+                            width: 100.0,
+                            height: 100.0,
+                            child: Center(
+                              child:Icon(Icons.group,size: 100.0,color: Colors.redAccent,),
+                            ),
+                          ),
+                        )],
+                    ),
                   ),
                 ),
-                ),
 
 
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
       ),
     );
   }

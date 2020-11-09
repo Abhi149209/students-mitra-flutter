@@ -10,7 +10,7 @@ class Networking {
 
       String data=response.body;
       var data23 = jsonDecode(data);
-      print(data23);
+
       return data23;
 
 
